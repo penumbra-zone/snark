@@ -9,13 +9,13 @@ pub type Result<T> = core::result::Result<T, SynthesisError>;
 mod impl_lc;
 mod constraint_system;
 mod error;
-#[cfg(feature = "std")]
-mod trace;
+//#[cfg(feature = "std")]
+//mod trace;
 
-#[cfg(feature = "std")]
-pub use crate::r1cs::trace::{ConstraintLayer, ConstraintTrace, TraceStep, TracingMode};
+//#[cfg(feature = "std")]
+//pub use crate::r1cs::trace::{ConstraintLayer, ConstraintTrace, TraceStep, TracingMode};
 
-pub use tracing::info_span;
+//pub use tracing::info_span;
 
 pub use ark_ff::{Field, ToConstraintField};
 pub use constraint_system::{

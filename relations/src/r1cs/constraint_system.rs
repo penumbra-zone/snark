@@ -1,5 +1,5 @@
-#[cfg(feature = "std")]
-use crate::r1cs::ConstraintTrace;
+//#[cfg(feature = "std")]
+//use crate::r1cs::ConstraintTrace;
 use crate::r1cs::{LcIndex, LinearCombination, Matrix, SynthesisError, Variable};
 use ark_ff::Field;
 use ark_std::{
@@ -63,9 +63,8 @@ pub struct ConstraintSystem<F: Field> {
 
     lc_map: BTreeMap<LcIndex, LinearCombination<F>>,
 
-    #[cfg(feature = "std")]
-    constraint_traces: Vec<Option<ConstraintTrace>>,
-
+    //#[cfg(feature = "std")]
+    //constraint_traces: Vec<Option<ConstraintTrace>>,
     a_constraints: Vec<LcIndex>,
     b_constraints: Vec<LcIndex>,
     c_constraints: Vec<LcIndex>,
@@ -138,9 +137,8 @@ impl<F: Field> ConstraintSystem<F> {
             instance_assignment: vec![F::one()],
             witness_assignment: Vec::new(),
             cache_map: Rc::new(RefCell::new(BTreeMap::new())),
-            #[cfg(feature = "std")]
-            constraint_traces: Vec::new(),
-
+            //#[cfg(feature = "std")]
+            //constraint_traces: Vec::new(),
             lc_map: BTreeMap::new(),
             lc_assignment_cache: Rc::new(RefCell::new(BTreeMap::new())),
 
@@ -266,11 +264,13 @@ impl<F: Field> ConstraintSystem<F> {
             self.c_constraints.push(c_index);
         }
         self.num_constraints += 1;
+        /*
         #[cfg(feature = "std")]
         {
             let trace = ConstraintTrace::capture();
             self.constraint_traces.push(trace);
         }
+         */
         Ok(())
     }
 
@@ -602,6 +602,7 @@ impl<F: Field> ConstraintSystem<F> {
                     .ok_or(SynthesisError::AssignmentMissing)?;
                 if a * b != c {
                     let trace;
+                    /*
                     #[cfg(feature = "std")]
                     {
                         trace = self.constraint_traces[i].as_ref().map_or_else(
@@ -614,8 +615,9 @@ impl<F: Field> ConstraintSystem<F> {
                     }
                     #[cfg(not(feature = "std"))]
                     {
-                        trace = format!("{}", i);
-                    }
+                     */
+                    trace = format!("{}", i);
+                    //}
                     return Ok(Some(trace));
                 }
             }
@@ -639,7 +641,7 @@ impl<F: Field> ConstraintSystem<F> {
                     self.lc_assignment_cache.borrow_mut().insert(idx, value);
                     Some(value)
                 }
-            }
+            },
         }
     }
 }
@@ -970,6 +972,7 @@ impl<F: Field> ConstraintSystemRef<F> {
 
     /// Get trace information about all constraints in the system
     pub fn constraint_names(&self) -> Option<Vec<String>> {
+        /*
         #[cfg(feature = "std")]
         {
             self.inner().and_then(|cs| {
@@ -1015,8 +1018,9 @@ impl<F: Field> ConstraintSystemRef<F> {
         }
         #[cfg(not(feature = "std"))]
         {
-            None
-        }
+         */
+        None
+        //}
     }
 }
 
