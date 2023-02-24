@@ -57,12 +57,13 @@ pub struct LinearCombination<F: Field>(pub Vec<(F, Variable)>);
 #[macro_export]
 macro_rules! ns {
     ($cs:expr, $name:expr) => {{
-        let span = $crate::r1cs::info_span!(target: "r1cs", $name);
-        let id = span.id();
-        let _enter_guard = span.enter();
-        core::mem::forget(_enter_guard);
-        core::mem::forget(span);
-        $crate::r1cs::Namespace::new($cs.clone(), id)
+        //let span = $crate::r1cs::info_span!(target: "r1cs", $name);
+        //let id = span.id();
+        //let _enter_guard = span.enter();
+        //core::mem::forget(_enter_guard);
+        //core::mem::forget(span);
+        //$crate::r1cs::Namespace::new($cs.clone(), id)
+        $crate::r1cs::Namespace::new($cs.clone(), None)
     }};
 }
 
